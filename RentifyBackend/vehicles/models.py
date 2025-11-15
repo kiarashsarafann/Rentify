@@ -23,3 +23,6 @@ class Vehicle(models.Model):
 class VehicleImages(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='vehicle_images/')
+
+    class Meta:
+        db_table = 'vehicles_vehicle_images'
