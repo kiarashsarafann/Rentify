@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class RegisterUserSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
@@ -25,7 +25,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             user.save()
             return user
 
-class LoginUserSerializer(serializers.ModelSerializer):
+class LoginSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField()
     password = serializers.CharField()
 

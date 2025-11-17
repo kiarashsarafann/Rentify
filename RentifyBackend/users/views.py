@@ -2,12 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import RegisterUserSerializer, LoginUserSerializer
+from .serializers import RegisterSerializer, LoginSerializer
 
 
 class RegisterView(APIView):
     def post(self, request):
-        serializer = RegisterUserSerializer(data=request.data)
+        serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -17,7 +17,7 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     def post(self, request):
-        serializer = LoginUserSerializer(data=request.data)
+        serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
             refresh = RefreshToken.for_user(user)
