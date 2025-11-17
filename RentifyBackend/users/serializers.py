@@ -24,3 +24,19 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             user.set_password(validated_data['password'])
             user.save()
             return user
+
+class LoginUserSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        try:
+            user = User.objects.get(phone_number=data['phone_number'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError("Phone number does not exist")
+
+        if not user.check_password(data['password']):
+            raise serializers.ValidationError("Incorrect password")
+
+        data['user'] = user
+        return data
