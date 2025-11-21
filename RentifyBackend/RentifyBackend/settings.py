@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'users',
     'vehicles',
+    'cart',
 ]
 
 MIDDLEWARE = [
