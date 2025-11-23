@@ -21,7 +21,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         ]
 
     def get_total_price(self, obj):
-        return obj.total_price
+        return obj.caluclate_price
 
 
 class CartSerializer(serializers.ModelSerializer):
@@ -33,8 +33,8 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "items", "calculate_total"]
         read_only_fields = ["user", "items", "calculate_total"]
 
-        def get_calculate_total(self, obj):
-            return obj.calculate_total
+    def get_calculate_total(self, obj):
+        return obj.calculate_total
 
 
 class AddCartItemSerializer(serializers.Serializer):
