@@ -42,3 +42,21 @@ class AddCartItemView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
+class RemoveCartItemView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        serializer = RemoveCartItemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        item_id = serializer.validated_data["item_id"]
+
+        try:
+            item = CartItem.objects.get(id=item_id, cart__user=request.user)
+            item.delete()
+            return Response({"message": "آیتم حذف شد"})
+        except CartItem.DoesNotExist:
+            return Response(
+                {"error": "آیتم پیدا نشد"},
+                status=status.HTTP_404_NOT_FOUND
+            )
