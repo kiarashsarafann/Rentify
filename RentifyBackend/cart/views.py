@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -11,6 +12,7 @@ from .serializers import (
 )
 
 
+@swagger_auto_schema(request_body=CartSerializer)
 class CartDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -20,6 +22,7 @@ class CartDetailView(APIView):
         return Response(serializer.data)
 
 
+@swagger_auto_schema(request_body=AddCartItemSerializer)
 class AddCartItemView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -42,6 +45,7 @@ class AddCartItemView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
+@swagger_auto_schema(request_body=RemoveCartItemSerializer)
 class RemoveCartItemView(APIView):
     permission_classes = [IsAuthenticated]
 
