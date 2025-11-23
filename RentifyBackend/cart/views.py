@@ -12,20 +12,20 @@ from .serializers import (
 )
 
 
-@swagger_auto_schema(request_body=CartSerializer)
 class CartDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(responses={200: CartSerializer})
     def get(self, request):
         cart, created = Cart.objects.get_or_create(user=request.user)
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
 
-@swagger_auto_schema(request_body=AddCartItemSerializer)
 class AddCartItemView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(request_body=AddCartItemSerializer)
     def post(self, request):
         serializer = AddCartItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -45,10 +45,10 @@ class AddCartItemView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
-@swagger_auto_schema(request_body=RemoveCartItemSerializer)
 class RemoveCartItemView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(request_body=RemoveCartItemSerializer)
     def delete(self, request):
         serializer = RemoveCartItemSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
