@@ -54,3 +54,5 @@ class AddCartItemSerializer(serializers.Serializer):
         data["vehicle"] = vehicle
         return data
 
+class RemoveCartItemSerializer(serializers.Serializer):
+    item_id = serializers.IntegerField()
