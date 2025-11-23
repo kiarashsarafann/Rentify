@@ -23,3 +23,14 @@ class CartItemSerializer(serializers.ModelSerializer):
         return obj.total_price
 
 
+class CartSerializer(serializers.ModelSerializer):
+    items = CartItemSerializer(many=True, read_only=True)
+    calculate_total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cart
+        fields = ["id", "user", "items", "calculate_total"]
+        read_only_fields = ["user", "items", "calculate_total"]
+
+        def get_calculate_total(self, obj):
+            return obj.calculate_total
