@@ -20,3 +20,25 @@ class CartDetailView(APIView):
         return Response(serializer.data)
 
 
+class AddCartItemView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = AddCartItemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        cart, created = Cart.objects.get_or_create(user=request.user)
+
+        item = CartItem.objects.create(
+            cart=cart,
+            vehicle=serializer.validated_data["vehicle"],
+            start_time=serializer.validated_data["start_time"],
+            end_time=serializer.validated_data["end_time"],
+        )
+
+        return Response({
+            "message": "آیتم با موفقیت اضافه شد",
+            "item_id": item.id
+        }, status=status.HTTP_201_CREATED)
+
+
