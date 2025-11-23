@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'jalali_date',
+    'django_jalali',
     'drf_yasg',
     'users',
     'vehicles',
