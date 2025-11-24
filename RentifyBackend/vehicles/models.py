@@ -26,3 +26,7 @@ class VehicleImages(models.Model):
 
     class Meta:
         db_table = 'vehicles_vehicle_images'
+
+    def __str__(self):
+        image_number = 0
+        return self.vehicle.name + " | " + str(self.image)
