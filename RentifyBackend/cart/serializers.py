@@ -21,7 +21,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         ]
 
     def get_total_price(self, obj):
-        return obj.caluclate_price
+        return obj.calculate_price
 
 
 class CartSerializer(serializers.ModelSerializer):

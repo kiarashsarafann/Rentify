@@ -26,7 +26,7 @@ class CartItem(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def caluclate_price(self):
+    def calculate_price(self):
         duration = self.end_time - self.start_time
         hours = duration.total_seconds() / 3600
 
