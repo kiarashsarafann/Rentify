@@ -37,8 +37,6 @@ class CartItem(models.Model):
 
         if days >= 1:
             hours = hours - (days * 24)
-            print(hours)
-            print(days)
             return (days * self.vehicle.price_per_day) + (hours * self.vehicle.price_per_hour)
 
         return hours * self.vehicle.price_per_hour
