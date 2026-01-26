@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +84,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'RentifyBackend.wsgi.application'
 
 # Bank
-
 
 AZ_IRANIAN_BANK_GATEWAYS = {
     "GATEWAYS": {
@@ -156,6 +157,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGES = [
+    ('fa', _('Persian')),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
