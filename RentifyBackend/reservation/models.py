@@ -49,4 +49,4 @@ class Reservation(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.user.name} | {self.total_price} | {self.status}"
+        return f"{self.user.username} | {self.total_price} | {self.status}"
