@@ -23,6 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
                     last_name=validated_data['last_name'],
                     national_code=validated_data['national_code'], )
         user.set_password(validated_data['password'])
+        user.username = validated_data['phone_number']
         user.save()
         return user
 
