@@ -43,16 +43,17 @@ class ReservationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("وسیله پیدا نشد")
         data["vehicle"] = vehicle
 
-        if Reservation.objects.filter(vehicle=vehicle,
-                                      status__in=[ReservationStatus.PENDING, ReservationStatus.CONFIRMED],
-                                      start_time__lt=data["end_time"],
-                                      end_time__gt=data["start_time"],
-                                      ).exists():
-            raise serializers.ValidationError("این بازه زمانی با یک آیتم دیگه تداخل دارد!")
-
+        if self.instance is None:
+            if Reservation.objects.filter(vehicle=vehicle,
+                                          status__in=[ReservationStatus.PENDING, ReservationStatus.CONFIRMED],
+                                          start_time__lt=data["end_time"],
+                                          end_time__gt=data["start_time"],
+                                          ).exists():
+                raise serializers.ValidationError("این بازه زمانی با یک آیتم دیگه تداخل دارد!")
         return data
 
     def update(self, instance, validated_data):
-        instance.status = validated_data["status"]
+        instance.start_time = validated_data["start_time"]
+        instance.end_time = validated_data["end_time"]
         instance.save()
         return instance
