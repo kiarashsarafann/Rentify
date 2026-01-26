@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'azbankgateways',
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'django_jalali',
@@ -43,9 +45,11 @@ INSTALLED_APPS = [
     'vehicles',
     'cart',
     'reservation',
+    'payment',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'RentifyBackend.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -74,6 +80,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'RentifyBackend.wsgi.application'
+
+# Bank
+
+
+AZ_IRANIAN_BANK_GATEWAYS = {
+    "GATEWAYS": {
+        "ZARINPAL": {
+            "MERCHANT_CODE": "b1d4a578-56c3-42f1-9ffe-17e04cf01773",
+            "SANDBOX": 1,  # 0 disable, 1 active
+        }
+    },
+    "IS_SAFE_GET_GATEWAY_PAYMENT": True,  # اختیاری، بهتر است True بگذارید.
+    "CALLBACK_NAMESPACE": "verify-payment",
+
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -123,7 +144,6 @@ SWAGGER_SETTINGS = {
     },
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -136,8 +156,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -165,7 +183,6 @@ JALALI_SETTINGS = {
         ]
     },
 }
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
