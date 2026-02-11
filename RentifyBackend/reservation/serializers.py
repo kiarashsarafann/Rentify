@@ -12,7 +12,7 @@ class ReservationSerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source="user.name", read_only=True)
     start_time = JDateTimeField()
     end_time = JDateTimeField()
-    status = serializers.CharField(source="status.name", read_only=True)
+    status = serializers.CharField(read_only=True)
     total_price = serializers.SerializerMethodField()
 
     class Meta:
