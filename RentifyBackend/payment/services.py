@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.conf import settings
 from azbankgateways import (
@@ -58,9 +59,7 @@ def verify_payment(request):
 
     try:
         payment = Payment.objects.get(authority=authority, status='pending')
-        print("hast")
     except Payment.DoesNotExist:
-        print("nist")
         return None
 
     factory = bankfactories.BankFactory()
